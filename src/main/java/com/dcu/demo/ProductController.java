@@ -1,20 +1,47 @@
 package com.dcu.demo;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @Controller
+
 public class ProductController {
+    private final ProductRepository productRepository;
+
     @GetMapping("/productList")
     String productsList(Model model) {
-        model.addAttribute("phone1","Galaxy s25 ultra");
-        model.addAttribute("price1","3,000,000원");
-        model.addAttribute("phone2","Galaxy s25 +");
-        model.addAttribute("price2","2,000,000원");
-        model.addAttribute("phone3","Galaxy s25");
-        model.addAttribute("price3","1,000,000원");
+        List<Product> products = productRepository.findAll();
+        model.addAttribute("products",products);
+        return "productList";
 
-        return "./productList";
+
+
     }
+    @GetMapping("/productRegister")
+    String productRegister(Model model){
+        return "productRegistration";
+    }
+
+    @PostMapping("/productRegister")
+    String productRegister(@ModelAttribute Product product) {
+        System.out.println(product.getImage());
+        System.out.println(product.getTitle());
+        System.out.println(product.getCompany());
+        System.out.println(product.getPrice());
+        System.out.println(product.getRelease_date());
+
+        //jpa를 통해 데이터베이스에 저장
+        productRepository.save(product);
+        //저장후 상품목록 페이지로 이동
+        return "redirect:/productList";
+
+    }
+
 }

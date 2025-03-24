@@ -1,15 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>상품목록 페이지</title>
+    <title>상품 목록 페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .product-card {
+            border: 1px solid #e0e0e0; /* ✅ 테두리 추가 */
+            border-radius: 12px; /* ✅ 모서리 둥글게 */
+            padding: 15px; /* ✅ 패딩 추가 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* ✅ 기본 그림자 추가 */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* ✅ 호버 효과 설정 */
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
+        .product-card img {
+            height: 250px;
+            object-fit: cover;
+            background-color: #f1f1f1;
+            padding: 10px;
+            width: 100%; /* ✅ 이미지 너비 통일 */
+            border-bottom: 1px solid #e0e0e0; /* ✅ 이미지와 본문 사이 구분선 추가 */
+        }
+
+        .product-card:hover {
+            transform: scale(1.05); /* ✅ 호버 시 확대 효과 */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* ✅ 호버 시 그림자 강조 */
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 1.1rem;
+            color: #0d6efd;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-weight: bold;
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h3 th:text="${phone1}">스마트폰 1</h3>
-    <p th:text="${price1}">100원</p>
-    <h3 th:text="${phone2}">스마트폰 2</h3>
-    <p th:text="${price2}">200원</p>
-    <h3 th:text="${phone3}">스마트폰 3</h3>
-    <p th:text="${price3}">300원</p>
+
+<!-- ✅ 네비게이션 바 추가 -->
+<nav th:replace="~{/fragments/header.html :: header}"></nav>
+
+<!-- ✅ 상품 목록 -->
+<div class="container py-5">
+    <h1 class="mb-4" style="color: #000000; font-size: 2.5rem;">상품 목록</h1>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+
+        <!-- ✅ 상품 카드 -->
+        <div th:each="product : ${products}" class="col">
+            <div class="card product-card h-100">
+                <img th:src="${product.image}" class="card-img-top" alt="상품 이미지">
+                <div class="card-body text-center">
+                    <h5 th:text="${product.title}" class="card-title"></h5>
+                    <p th:text="${#numbers.formatInteger(product.price,3,'COMMA') + ' 원'}"
+                       class="card-text text-primary fw-bold">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ✅ Bootstrap JS 추가 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>
