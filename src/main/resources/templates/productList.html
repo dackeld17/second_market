@@ -67,7 +67,8 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
 
         <!-- ✅ 상품 카드 -->
-        <div th:each="product : ${products}" class="col">
+        <div th:each="product : ${products}" th:onclick="|window.location.href='/productDetail/'+${product.id}|"   class="col"  >
+<!--            <a th:href="@{/productDetail/{id}(id=${product.id})}" >-->
             <div class="card product-card h-100">
                 <img th:src="${product.image}" class="card-img-top" alt="상품 이미지">
                 <div class="card-body text-center">
@@ -77,6 +78,7 @@
                     </p>
                 </div>
             </div>
+<!--            </a>-->
         </div>
 
     </div>

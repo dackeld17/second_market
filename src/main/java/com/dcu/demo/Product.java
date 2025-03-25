@@ -25,6 +25,8 @@ public class Product {
     @Column(length = 100)
     private String company;
 
+
+
     private Integer price;
     private LocalDate release_date;
 
