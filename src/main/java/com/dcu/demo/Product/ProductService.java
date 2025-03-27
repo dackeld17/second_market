@@ -1,4 +1,4 @@
-package com.dcu.demo;
+package com.dcu.demo.Product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

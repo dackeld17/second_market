@@ -1,4 +1,4 @@
-package com.dcu.demo;
+package com.dcu.demo.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

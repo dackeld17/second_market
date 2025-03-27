@@ -1,4 +1,4 @@
-package com.dcu.demo;
+package com.dcu.demo.Product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,16 +15,16 @@ public class ProductController {
     private final ProductService productService;
 
     //상품목록 페이지
-    @GetMapping("/productList")
+    @GetMapping({"/","/productList"})
     String productsList(Model model) {
         List<Product> products= productService.productFindAll();
         model.addAttribute("products",products);
-        return "productList";
+        return "product/productList";
     }
     //상품등록페이지
     @GetMapping("/productRegister")
     String productRegister(Model model){
-        return "productRegistration";
+        return "product/productRegistration";
     }
 
     @PostMapping("/productRegister")
@@ -32,7 +32,7 @@ public class ProductController {
         //jpa를 통해 데이터베이스에 저장
         productService.productSave(product);
         //저장후 상품목록 페이지로 이동
-        return "redirect:/productList";
+        return "redirect:/product/productList";
 
     }
 
@@ -41,9 +41,9 @@ public class ProductController {
         Optional<Product> product = productService.productFindById(id); //Optional 없는 값 예외처리(에러방지)
         if(product.isPresent()){//안에 있을때만
             model.addAttribute("product",product.get());
-            return  "productDetail";
+            return  "product/productDetail";
         }else{
-            return "redirect:/productList";
+            return "redirect:/product/productList";
         }
 
 
@@ -54,9 +54,9 @@ public class ProductController {
         Optional<Product> product = productService.productFindById(id);
         if(product.isPresent()){
             model.addAttribute("product",product.get());
-            return  "productEdit";
+            return  "product/productEdit";
         }else{
-            return "redirect:/productList";
+            return "redirect:/product/productList";
         }
     }
     @PostMapping("/productEdit")
@@ -64,13 +64,13 @@ public class ProductController {
         //jpa를 통해 데이터베이스에 저장
         productService.productSave(product);
         //저장후 상품목록 페이지로 이동
-        return "redirect:/productList";
+        return "redirect:/product/productList";
 
     }
     @PostMapping("/productDelete")
     String productDelete(@ModelAttribute Product product){
             productService.productDelete(product.getId());
-            return "redirect:/productList";
+            return "redirect:/product/productList";
     }
 
 }
