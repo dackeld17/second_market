@@ -1,48 +1,46 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-white bg-white px-4" th:fragment="header"
-     style="border-bottom: 1px solid #e0e0e0;"> <!-- ✅ 회색 선 추가 -->
-    <div class="d-flex align-items-center">
+     style="border-bottom: 1px solid #e0e0e0;">
+    <div class="container-fluid">
+        <!-- 좌측: 로고 + 기온 -->
         <a class="navbar-brand d-flex align-items-center" href="/">
-            <img src="/img/logo.jpg" alt="MyShop 로고" width="40" height="40" class="me-2">
-            <span class="fw-bold fs-5">MyShop</span>
+            <img src="/img/logo.png" alt="MyShop 로고" style="height: 60px; width: 150px;">
+            <span class="ms-3" style="font-size: 1rem;" th:text="'현재 기온: ' + ${currentTemperature}"></span>
         </a>
-        <span class="ms-3" style="font-size: 1rem;" th:text="'현재 기온: ' + ${currentTemperature}"></span>
+
+        <!-- 햄버거 메뉴 버튼 -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- 우측 메뉴 (토글 대상) -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+            <ul class="navbar-nav">
+                <!-- 로그인 상태일 때 -->
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <span class="nav-link text-dark fw-semibold">
+                        안녕하세요 <span sec:authentication="name"></span>님
+                    </span>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <button type="submit" class="btn btn-outline-primary btn-sm ms-2" href="/product-registration">
+                        상품등록
+                    </button>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form action="/logout" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-dark btn-sm ms-2">로그아웃</button>
+                    </form>
+                </li>
+
+                <!-- 비로그인 상태일 때 -->
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <form action="/memberLogin" method="get" class="d-inline">
+                        <button type="submit" class="btn btn-outline-dark btn-sm ms-2">로그인</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
     </div>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-            aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link fw-semibold" href="/productList">상품 목록</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link fw-semibold" href="/product-registration">상품 등록</a>
-            </li>
-
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <span class="nav-link text-dark fw-semibold" >
-                    안녕하세요  <span sec:authentication="name"></span>님
-                </span>
-            </li>
-
-
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <form action="/logout" method="post" class="d-inline">
-                    <button type="submit" class="btn btn-outline-dark btn-sm ms-3"> 로그아웃</button>
-                </form>
-            </li>
-
-            <li class="nav-item" sec:authorize="isAnonymous()">
-                <form action="/memberLogin" method="get" class="d-inline">
-                    <button type="submit" class="btn btn-outline-dark btn-sm ms-3">로그인</button>
-                </form>
-            </li>
-        </ul>
-    </div>
-
-
 </nav>
