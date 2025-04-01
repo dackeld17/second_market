@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>대구 현재 기온</title>
+</head>
+<body>
+<h3>대구 현재 기온 (기준: <span th:text="${formattedDateTime}"></span>)</h3>
+
+<p>
+  🌡️ 현재 기온: <span th:text="${temperature} + '℃'"></span>
+</p>
+</body>
+</html>

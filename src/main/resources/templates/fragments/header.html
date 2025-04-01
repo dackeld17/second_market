@@ -1,10 +1,13 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-white bg-white px-4" th:fragment="header"
      style="border-bottom: 1px solid #e0e0e0;"> <!-- ✅ 회색 선 추가 -->
-    <a class="navbar-brand d-flex align-items-center" href="/">
-        <img src="/img/logo.jpg" alt="MyShop 로고" width="40" height="40" class="me-2">
-        <span class="fw-bold fs-5">MyShop</span>
-    </a>
+    <div class="d-flex align-items-center">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="/img/logo.jpg" alt="MyShop 로고" width="40" height="40" class="me-2">
+            <span class="fw-bold fs-5">MyShop</span>
+        </a>
+        <span class="ms-3" style="font-size: 1rem;" th:text="'현재 기온: ' + ${currentTemperature}"></span>
+    </div>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
             aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +20,7 @@
                 <a class="nav-link fw-semibold" href="/productList">상품 목록</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-semibold" href="/productRegister">상품 등록</a>
+                <a class="nav-link fw-semibold" href="/product-registration">상품 등록</a>
             </li>
 
             <li class="nav-item" sec:authorize="isAuthenticated()">

@@ -17,7 +17,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.authorizeHttpRequests(authorization -> authorization
-                .requestMatchers("/img/*","/","/memberSignUp","/memberLogin").permitAll()
+                .requestMatchers("/img/*","/","/memberSignUp","/memberLogin","/upload/images/*").permitAll()
                 .anyRequest().authenticated()
         );
         httpSecurity.formLogin(form-> form

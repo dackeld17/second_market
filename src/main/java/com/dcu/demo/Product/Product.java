@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -13,20 +15,27 @@ import java.time.LocalDate;
 @ToString
 public class Product {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
 
-    @Column(columnDefinition = "Text")
-    private String image;
-    @Column(nullable = false, unique = true)
-    private String title;
+    @Column(nullable = false, columnDefinition = "Text")
+    public String image;
+
+    @Column(nullable = false)
+    public String title;
+
+    @Column(nullable = false)
+    public Integer price;
 
 
-    @Column(length = 100)
-    private String company;
+    @Column(length = 100,nullable = false)
+    public String company;
 
 
+    @Column(nullable = false)
+    public LocalDate manufactureDate; //제조일
 
-    private Integer price;
-    private LocalDate release_date;
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    public LocalDateTime createdAt;
 
 }
